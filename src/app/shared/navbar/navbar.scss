@@ -1,0 +1,57 @@
+:host {
+  display: block;
+}
+
+.navbar {
+  width: min(1200px, calc(100% - 48px));
+  margin-inline: auto;
+  padding: 24px 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+}
+
+.logo span {
+  color: #8b7cff;
+}
+
+nav {
+  display: flex;
+  gap: 32px;
+}
+
+nav a {
+  color: #92929f;
+  font-size: 0.9rem;
+
+  transition: color 180ms ease;
+}
+
+nav a:hover {
+  color: #ffffff;
+}
+
+.github-link {
+  padding: 10px 16px;
+
+  border: 1px solid #292934;
+  border-radius: 999px;
+
+  font-size: 0.85rem;
+
+  transition:
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.github-link:hover {
+  background: #16161d;
+  border-color: #444452;
+}

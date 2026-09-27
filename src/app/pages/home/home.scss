@@ -1,0 +1,59 @@
+:host {
+  display: block;
+}
+
+.hero {
+  min-height: calc(100vh - 160px);
+
+  width: min(1200px, calc(100% - 48px));
+  margin-inline: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.eyebrow {
+  margin: 0 0 24px;
+
+  color: #8b7cff;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+h1 {
+  max-width: 900px;
+  margin: 0;
+
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: -0.07em;
+}
+
+h1 span {
+  display: block;
+
+  background: linear-gradient(
+    90deg,
+    #8b7cff,
+    #b18cff,
+    #ff8cd8
+  );
+
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+}
+
+.description {
+  max-width: 600px;
+  margin-top: 32px;
+
+  color: #888895;
+
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
