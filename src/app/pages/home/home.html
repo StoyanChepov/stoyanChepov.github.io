@@ -1,5 +1,7 @@
 <section class="hero">
-  <p class="eyebrow">SOFTWARE DEVELOPER</p>
+  <p class="eyebrow">
+    {{ profile().role }}
+  </p>
 
   <h1>
     Building digital
@@ -7,7 +9,25 @@
   </h1>
 
   <p class="description">
-    I'm Stoyan. I build modern web applications
-    with a focus on clean architecture and great user experiences.
+    {{ introduction() }}
+    {{ profile().description }}
   </p>
+
+  <p class="location">
+    Based in {{ profile().location }}
+  </p>
+</section>
+
+<section class="projects">
+  <div class="section-heading">
+    <p class="eyebrow">Selected work</p>
+
+    <h2>Projects</h2>
+  </div>
+
+  <div class="project-grid">
+    @for (project of projects(); track project.id) {
+      <app-project-card [project]="project" />
+    }
+  </div>
 </section>

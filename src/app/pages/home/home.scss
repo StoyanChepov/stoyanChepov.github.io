@@ -57,3 +57,31 @@ h1 span {
   font-size: 1.05rem;
   line-height: 1.7;
 }
+
+.projects {
+  width: min(1200px, calc(100% - 48px));
+  margin: 120px auto;
+}
+
+.section-heading {
+  margin-bottom: 40px;
+}
+
+.section-heading h2 {
+  margin: 0;
+
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: -0.06em;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+}
