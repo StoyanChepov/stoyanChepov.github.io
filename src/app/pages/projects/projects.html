@@ -10,15 +10,31 @@
     </p>
   </header>
 
-  @if (projects.isLoading()) {
-  <p>Loading projects...</p>
-  } @else if (projects.error()) {
-  <p>Could not load projects.</p>
-  } @else if (projects.hasValue()) {
-  <div class="project-grid">
-    @for (project of projects.value(); track project.id) {
-    <app-project-card [project]="project" />
-    }
+  <div class="search">
+    <label for="project-search">
+      Search projects
+    </label>
+
+    <input
+      id="project-search"
+      type="search"
+      placeholder="Search by name, technology..."
+      [value]="search()"
+      (input)="search.set($any($event.target).value)"
+    />
   </div>
+
+  @if (projects.isLoading()) {
+    <p>Loading projects...</p>
+  } @else if (projects.error()) {
+    <p>Could not load projects.</p>
+  } @else if (projects.hasValue()) {
+    <div class="project-grid">
+      @for (project of filteredProjects(); track project.id) {
+        <app-project-card [project]="project" />
+      } @empty {
+        <p>No projects found.</p>
+      }
+    </div>
   }
 </section>
