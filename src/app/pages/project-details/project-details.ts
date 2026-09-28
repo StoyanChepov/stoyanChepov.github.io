@@ -1,10 +1,9 @@
 import {
   Component,
   computed,
-  inject
+  inject,
+  input
 } from '@angular/core';
-
-import { ActivatedRoute } from '@angular/router';
 
 import { ProjectService } from '../../core/services/project';
 
@@ -15,14 +14,11 @@ import { ProjectService } from '../../core/services/project';
   styleUrl: './project-details.scss'
 })
 export class ProjectDetails {
-  private readonly route = inject(ActivatedRoute);
   private readonly projectService = inject(ProjectService);
 
-  readonly projectId = this.route.snapshot.paramMap.get('id');
+  readonly id = input.required<string>();
 
   readonly project = computed(() =>
-    this.projectId
-      ? this.projectService.getProjectById(this.projectId)
-      : undefined
+    this.projectService.getProjectById(this.id())
   );
 }
