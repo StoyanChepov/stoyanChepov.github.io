@@ -1,0 +1,18 @@
+<section class="projects-page">
+  <header class="page-header">
+    <p class="eyebrow">My work</p>
+
+    <h1>Projects</h1>
+
+    <p>
+      A collection of things I've built while exploring
+      modern web development.
+    </p>
+  </header>
+
+  <div class="project-grid">
+    @for (project of projects(); track project.id) {
+      <app-project-card [project]="project" />
+    }
+  </div>
+</section>

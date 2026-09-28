@@ -1,0 +1,47 @@
+<section class="project-details">
+  @if (project(); as project) {
+    <p class="eyebrow">
+      Project {{ project.id }}
+    </p>
+
+    <h1>
+      {{ project.title }}
+    </h1>
+
+    <p class="description">
+      {{ project.description }}
+    </p>
+
+    <div class="technologies">
+      @for (technology of project.technologies; track technology) {
+        <span>{{ technology }}</span>
+      }
+    </div>
+
+    <div class="actions">
+      <a
+        [href]="project.githubUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        GitHub ↗
+      </a>
+
+      @if (project.liveUrl) {
+        <a
+          [href]="project.liveUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Live Demo ↗
+        </a>
+      }
+    </div>
+  } @else {
+    <h1>Project not found</h1>
+
+    <p>
+      We couldn't find the project you're looking for.
+    </p>
+  }
+</section>

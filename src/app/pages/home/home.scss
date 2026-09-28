@@ -85,3 +85,44 @@ h1 span {
     grid-template-columns: 1fr;
   }
 }
+
+.selected-project {
+  margin-top: 32px;
+  padding: 32px;
+
+  border: 1px solid #292934;
+  border-radius: 20px;
+
+  background: #101017;
+}
+
+.selected-project h3 {
+  margin: 0 0 12px;
+
+  font-size: 1.8rem;
+  letter-spacing: -0.04em;
+}
+
+.selected-project p:not(.eyebrow) {
+  max-width: 600px;
+
+  color: #888895;
+  line-height: 1.7;
+}
+
+.selected-project button {
+  margin-top: 16px;
+  padding: 10px 16px;
+
+  border: 1px solid #292934;
+  border-radius: 999px;
+
+  background: transparent;
+  color: #ffffff;
+
+  cursor: pointer;
+}
+
+.selected-project button:hover {
+  background: #181820;
+}

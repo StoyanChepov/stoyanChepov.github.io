@@ -12,29 +12,26 @@
       {{ project().description }}
     </p>
 
+
     <div class="technologies">
       @for (technology of project().technologies; track technology) {
-        <span>{{ technology }}</span>
+      <span>{{ technology }}</span>
       }
     </div>
 
     <div class="links">
-      <a
-        [href]="project().githubUrl"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a class="details-link" [routerLink]="['/projects', project().id]">
+        View project →
+      </a>
+
+      <a [href]="project().githubUrl" target="_blank" rel="noopener noreferrer">
         GitHub ↗
       </a>
 
       @if (project().liveUrl) {
-        <a
-          [href]="project().liveUrl"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Live Demo ↗
-        </a>
+      <a [href]="project().liveUrl" target="_blank" rel="noopener noreferrer">
+        Live Demo ↗
+      </a>
       }
     </div>
   </div>
