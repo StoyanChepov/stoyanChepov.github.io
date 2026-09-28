@@ -18,7 +18,13 @@ export class ProjectDetails {
 
   readonly id = input.required<string>();
 
-  readonly project = computed(() =>
-    this.projectService.getProjectById(this.id())
-  );
+  readonly project = computed(() => {
+    if (!this.projectService.projects.hasValue()) {
+      return undefined;
+    }
+
+    return this.projectService.projects
+      .value()
+      .find(project => project.id === this.id());
+  });
 }

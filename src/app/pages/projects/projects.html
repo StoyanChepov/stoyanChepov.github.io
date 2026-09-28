@@ -10,9 +10,15 @@
     </p>
   </header>
 
+  @if (projects.isLoading()) {
+  <p>Loading projects...</p>
+  } @else if (projects.error()) {
+  <p>Could not load projects.</p>
+  } @else if (projects.hasValue()) {
   <div class="project-grid">
-    @for (project of projects(); track project.id) {
-      <app-project-card [project]="project" />
+    @for (project of projects.value(); track project.id) {
+    <app-project-card [project]="project" />
     }
   </div>
+  }
 </section>

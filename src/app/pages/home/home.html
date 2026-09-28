@@ -25,11 +25,19 @@
     <h2>Projects</h2>
   </div>
 
+@if (projects.isLoading()) {
+  <p>Loading projects...</p>
+} @else if (projects.error()) {
+  <p>Could not load projects.</p>
+} @else if (projects.hasValue()) {
   <div class="project-grid">
-    @for (project of projects(); track project.id) {
-      <app-project-card [project]="project" (selected)="selectProject($event)" />
+    @for (project of projects.value(); track project.id) {
+      <app-project-card
+        [project]="project"
+      />
     }
   </div>
+}
 
 @if (selectedProject(); as project) {
   <div class="selected-project">

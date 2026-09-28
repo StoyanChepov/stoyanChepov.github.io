@@ -1,0 +1,23 @@
+[
+  {
+    "id": "01",
+    "title": "Personal Portfolio",
+    "description": "A modern portfolio built to explore Angular architecture and modern framework features.",
+    "technologies": ["Angular", "TypeScript", "SCSS"],
+    "githubUrl": "https://github.com/StoyanChepov/stoyanChepov.github.io"
+  },
+  {
+    "id": "02",
+    "title": "Project Two",
+    "description": "A project focused on APIs, reactive data and asynchronous Angular patterns.",
+    "technologies": ["Angular", "RxJS", "REST API"],
+    "githubUrl": "https://github.com/StoyanChepov"
+  },
+  {
+    "id": "03",
+    "title": "Project Three",
+    "description": "A project focused on forms, validation, authentication and routing.",
+    "technologies": ["Angular", "Forms", "Routing"],
+    "githubUrl": "https://github.com/StoyanChepov"
+  }
+]

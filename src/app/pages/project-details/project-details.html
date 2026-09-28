@@ -1,35 +1,39 @@
 <section class="project-details">
-  @if (project(); as project) {
+ @if (project(); as currentProject) {
+  <section class="project-details">
     <p class="eyebrow">
-      Project {{ project.id }}
+      Project {{ currentProject.id }}
     </p>
 
     <h1>
-      {{ project.title }}
+      {{ currentProject.title }}
     </h1>
 
-    <p class="description">
-      {{ project.description }}
+    <p>
+      {{ currentProject.description }}
     </p>
 
     <div class="technologies">
-      @for (technology of project.technologies; track technology) {
+      @for (
+        technology of currentProject.technologies;
+        track technology
+      ) {
         <span>{{ technology }}</span>
       }
     </div>
 
-    <div class="actions">
+    <div class="links">
       <a
-        [href]="project.githubUrl"
+        [href]="currentProject.githubUrl"
         target="_blank"
         rel="noopener noreferrer"
       >
         GitHub ↗
       </a>
 
-      @if (project.liveUrl) {
+      @if (currentProject.liveUrl) {
         <a
-          [href]="project.liveUrl"
+          [href]="currentProject.liveUrl"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -37,11 +41,8 @@
         </a>
       }
     </div>
-  } @else {
-    <h1>Project not found</h1>
-
-    <p>
-      We couldn't find the project you're looking for.
-    </p>
-  }
+  </section>
+} @else {
+  <p>Project not found.</p>
+}
 </section>
