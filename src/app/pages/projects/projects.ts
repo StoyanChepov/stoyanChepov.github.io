@@ -3,7 +3,7 @@ import {
   inject,
   signal
 } from '@angular/core';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { toSignal } from '@angular/core/rxjs-interop';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -14,9 +14,14 @@ import {
 import { ProjectService } from '../../core/services/project';
 import { ProjectCard } from '../../shared/project-card/project-card';
 
+import {
+  ReactiveFormsModule, FormControl,
+  Validators
+} from '@angular/forms';
+
 @Component({
   selector: 'app-projects',
-  imports: [ProjectCard],
+  imports: [ProjectCard, ReactiveFormsModule],
   templateUrl: './projects.html',
   styleUrl: './projects.scss'
 })
@@ -25,12 +30,15 @@ export class Projects {
 
   readonly projects = this.projectService.projects;
 
-  readonly search = signal('');
-
-  private readonly search$ = toObservable(this.search);
+  readonly searchControl = new FormControl('', {
+    nonNullable: true,
+    validators: [
+      Validators.maxLength(30)
+    ]
+  });
 
   readonly filteredProjects = toSignal(
-    this.search$.pipe(
+    this.searchControl.valueChanges.pipe(
       startWith(''),
       debounceTime(300),
       distinctUntilChanged(),

@@ -15,26 +15,30 @@
       Search projects
     </label>
 
-    <input
-      id="project-search"
-      type="search"
-      placeholder="Search by name, technology..."
-      [value]="search()"
-      (input)="search.set($any($event.target).value)"
-    />
+    <input id="project-search" type="search" placeholder="Search by name, technology..."
+      [formControl]="searchControl" />
+
+    @if (
+    searchControl.hasError('maxlength')
+    && searchControl.dirty
+    ) {
+    <p class="form-error">
+      Search must be 30 characters or less.
+    </p>
+    }
   </div>
 
   @if (projects.isLoading()) {
-    <p>Loading projects...</p>
+  <p>Loading projects...</p>
   } @else if (projects.error()) {
-    <p>Could not load projects.</p>
+  <p>Could not load projects.</p>
   } @else if (projects.hasValue()) {
-    <div class="project-grid">
-      @for (project of filteredProjects(); track project.id) {
-        <app-project-card [project]="project" />
-      } @empty {
-        <p>No projects found.</p>
-      }
-    </div>
+  <div class="project-grid">
+    @for (project of filteredProjects(); track project.id) {
+    <app-project-card [project]="project" />
+    } @empty {
+    <p>No projects found.</p>
+    }
+  </div>
   }
 </section>
