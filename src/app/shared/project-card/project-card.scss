@@ -9,7 +9,7 @@
   border: 1px solid #1c1c24;
   border-radius: 20px;
 
-  background: #0d0d12;
+  background: var(--surface);
 
   transition:
     transform 200ms ease,
@@ -20,7 +20,7 @@
 .project-card:hover {
   transform: translateY(-4px);
   border-color: #34343f;
-  background: #111118;
+  background: var(--surface);
 }
 
 .project-id {

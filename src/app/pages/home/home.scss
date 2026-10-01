@@ -93,7 +93,7 @@ h1 span {
   border: 1px solid #292934;
   border-radius: 20px;
 
-  background: #101017;
+  background: var(--surface);
 }
 
 .selected-project h3 {
@@ -124,5 +124,5 @@ h1 span {
 }
 
 .selected-project button:hover {
-  background: #181820;
+  background: var(--surface);
 }
