@@ -4,7 +4,7 @@ import {
   inject,
   signal
 } from '@angular/core';
-
+import { RouterLink } from '@angular/router';
 import { Profile } from '../../core/models/profile';
 import { Project } from '../../core/models/project';
 import { ProjectService } from '../../core/services/project';
@@ -12,7 +12,7 @@ import { ProjectCard } from '../../shared/project-card/project-card';
 
 @Component({
   selector: 'app-home',
-  imports: [ProjectCard],
+  imports: [ProjectCard, RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
@@ -28,16 +28,11 @@ export class Home {
     location: 'Bulgaria'
   });
 
-  readonly selectedProject = signal<Project | null>(null);
 
   readonly introduction = computed(
     () =>
       `I'm ${this.profile().name}, a ${this.profile().role}.`
   );
-
-  selectProject(project: Project): void {
-    this.selectedProject.set(project);
-  }
 
   readonly projects = this.projectService.projects;
 }

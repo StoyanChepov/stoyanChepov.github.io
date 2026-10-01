@@ -1,9 +1,17 @@
 import {
   Component,
-  inject,
-  signal
+  inject
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+
+import {
+  FormControl,
+  ReactiveFormsModule
+} from '@angular/forms';
+
+import {
+  toSignal
+} from '@angular/core/rxjs-interop';
+
 import {
   debounceTime,
   distinctUntilChanged,
@@ -14,54 +22,65 @@ import {
 import { ProjectService } from '../../core/services/project';
 import { ProjectCard } from '../../shared/project-card/project-card';
 
-import {
-  ReactiveFormsModule, FormControl,
-  Validators
-} from '@angular/forms';
-
 @Component({
   selector: 'app-projects',
-  imports: [ProjectCard, ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    ProjectCard
+  ],
   templateUrl: './projects.html',
   styleUrl: './projects.scss'
 })
 export class Projects {
-  private readonly projectService = inject(ProjectService);
+  private readonly projectService =
+    inject(ProjectService);
 
-  readonly projects = this.projectService.projects;
+  readonly projects =
+    this.projectService.projects;
 
-  readonly searchControl = new FormControl('', {
-    nonNullable: true,
-    validators: [
-      Validators.maxLength(30)
-    ]
-  });
+  readonly loading =
+    this.projectService.isLoading;
 
-  readonly filteredProjects = toSignal(
-    this.searchControl.valueChanges.pipe(
-      startWith(''),
-      debounceTime(300),
-      distinctUntilChanged(),
-      map(searchTerm => {
-        const term = searchTerm.trim().toLowerCase();
+  readonly error =
+    this.projectService.error;
 
-        if (!this.projects.hasValue()) {
-          return [];
-        }
+  readonly searchControl =
+    new FormControl('', {
+      nonNullable: true
+    });
 
-        return this.projects
-          .value()
-          .filter(project =>
-            project.title.toLowerCase().includes(term)
-            || project.description.toLowerCase().includes(term)
-            || project.technologies.some(technology =>
-              technology.toLowerCase().includes(term)
-            )
-          );
-      })
-    ),
-    {
-      initialValue: []
-    }
-  );
+  readonly filteredProjects =
+    toSignal(
+      this.searchControl.valueChanges.pipe(
+        startWith(''),
+        debounceTime(300),
+        distinctUntilChanged(),
+
+        map(searchTerm => {
+          const term =
+            searchTerm.trim().toLowerCase();
+
+          return this.projects()
+            .filter(project =>
+              project.title
+                .toLowerCase()
+                .includes(term)
+              ||
+              project.description
+                .toLowerCase()
+                .includes(term)
+              ||
+              project.technologies.some(
+                technology =>
+                  technology
+                    .toLowerCase()
+                    .includes(term)
+              )
+            );
+        })
+      ),
+      {
+        initialValue: []
+      }
+    );
 }

@@ -15,16 +15,9 @@ import { ProjectService } from '../../core/services/project';
 })
 export class ProjectDetails {
   private readonly projectService = inject(ProjectService);
-
   readonly id = input.required<string>();
 
-  readonly project = computed(() => {
-    if (!this.projectService.projects.hasValue()) {
-      return undefined;
-    }
-
-    return this.projectService.projects
-      .value()
-      .find(project => project.id === this.id());
-  });
+  readonly project = computed(() =>
+    this.projectService.getProjectById(this.id())
+  );
 }

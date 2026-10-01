@@ -1,12 +1,16 @@
 <section class="projects-page">
-  <header class="page-header">
-    <p class="eyebrow">My work</p>
 
-    <h1>Projects</h1>
+  <header class="page-header">
+    <p class="eyebrow">
+      My work
+    </p>
+
+    <h1>
+      Projects
+    </h1>
 
     <p>
-      A collection of things I've built while exploring
-      modern web development.
+      A collection of things I've built.
     </p>
   </header>
 
@@ -15,30 +19,55 @@
       Search projects
     </label>
 
-    <input id="project-search" type="search" placeholder="Search by name, technology..."
-      [formControl]="searchControl" />
+    <input
+      id="project-search"
+      type="search"
+      placeholder="Search projects..."
+      [formControl]="searchControl"
+    />
+  </div>
 
-    @if (
-    searchControl.hasError('maxlength')
-    && searchControl.dirty
-    ) {
-    <p class="form-error">
-      Search must be 30 characters or less.
+  @if (loading()) {
+
+    <p>
+      Loading projects from GitHub...
     </p>
-    }
-  </div>
 
-  @if (projects.isLoading()) {
-  <p>Loading projects...</p>
-  } @else if (projects.error()) {
-  <p>Could not load projects.</p>
-  } @else if (projects.hasValue()) {
-  <div class="project-grid">
-    @for (project of filteredProjects(); track project.id) {
-    <app-project-card [project]="project" />
-    } @empty {
-    <p>No projects found.</p>
-    }
-  </div>
+  } @else if (error()) {
+
+    <section class="error">
+      <h2>
+        GitHub couldn't be reached.
+      </h2>
+
+      <p>
+        Please try again later.
+      </p>
+    </section>
+
+  } @else {
+
+    <div class="project-grid">
+
+      @for (
+        project of filteredProjects();
+        track project.id
+      ) {
+
+        <app-project-card
+          [project]="project"
+        />
+
+      } @empty {
+
+        <p>
+          No projects match your search.
+        </p>
+
+      }
+
+    </div>
+
   }
+
 </section>
