@@ -1,9 +1,5 @@
 <article class="project-card">
   <div class="content">
-    <p class="project-id">
-      {{ project().id }}
-    </p>
-
     <h3>
       {{ project().title }}
     </h3>
@@ -12,21 +8,36 @@
       {{ project().description }}
     </p>
 
+    @if (project().primaryLanguage) {
+    <span class="primary-language">
+      {{ project().primaryLanguage }}
+    </span>
+    }
 
-    <div class="technologies">
-      @for (technology of project().technologies; track technology) {
-      <span>{{ technology }}</span>
-      }
+    <div class="project-meta">
+      <span>
+        ⭐ {{ project().stars }}
+      </span>
+
+      <span>
+        🍴 {{ project().forks }}
+      </span>
     </div>
 
     <div class="links">
-      <a class="details-link" [routerLink]="['/projects', project().id]">
-        View project →
-      </a>
 
       <a [href]="project().githubUrl" target="_blank" rel="noopener noreferrer">
         GitHub ↗
       </a>
+
+      <a class="details-link" [routerLink]="[
+          '/projects',
+          project().id
+        ]">
+        View project →
+      </a>
+
     </div>
+
   </div>
 </article>

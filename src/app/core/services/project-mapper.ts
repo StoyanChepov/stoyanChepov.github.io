@@ -1,48 +1,25 @@
-import {
-  GitHubRepository
-} from '../models/github-repository';
-
-import {
-  Project,
-  Technology
-} from '../models/project';
-
-function mapTechnology(
-  language: string | null
-): Technology {
-  switch (language) {
-    case 'TypeScript':
-      return 'TypeScript';
-
-    case 'JavaScript':
-      return 'JavaScript';
-
-    case 'React':
-      return 'React';
-
-    case 'Angular':
-      return 'Angular';
-
-    default:
-      return 'Other';
-  }
-}
+import { GitHubRepository } from '../models/github-repository';
+import { Project } from '../models/project';
 
 export function mapGitHubRepository(
-  repository: GitHubRepository
+    repository: GitHubRepository
 ): Project {
-  return {
-    id: String(repository.id),
-    title: repository.name,
-    description:
-      repository.description ??
-      'No description provided.',
-    technologies: [
-      mapTechnology(repository.language)
-    ],
-    githubUrl: repository.html_url,
-    stars: repository.stargazers_count,
-    forks: repository.forks_count,
-    updatedAt: repository.updated_at
-  };
+    return {
+        id: String(repository.id),
+        title: repository.name,
+        description:
+            repository.description ??
+            'No description provided.',
+        primaryLanguage:
+            repository.language,
+        languages: {},
+        githubUrl:
+            repository.html_url,
+        stars:
+            repository.stargazers_count,
+        forks:
+            repository.forks_count,
+        updatedAt:
+            repository.updated_at
+    };
 }

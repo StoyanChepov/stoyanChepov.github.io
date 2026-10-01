@@ -6,6 +6,7 @@ export interface GitHubRepository {
   description: string | null;
   language: string | null;
   topics: string[];
+  languages_url: string;
   stargazers_count: number;
   forks_count: number;
   updated_at: string;

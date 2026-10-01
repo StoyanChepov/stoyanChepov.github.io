@@ -19,54 +19,69 @@
       Search projects
     </label>
 
-    <input
-      id="project-search"
-      type="search"
-      placeholder="Search projects..."
-      [formControl]="searchControl"
-    />
+    <input id="project-search" type="search" placeholder="Search projects..." [formControl]="searchControl" />
+  </div>
+
+
+  <div class="filter">
+    <label for="language-filter">
+      Language
+    </label>
+
+    <select id="language-filter" [formControl]="languageControl">
+      <option value="All">
+        All languages
+      </option>
+
+      @for (
+      language of availableLanguages();
+      track language
+      ) {
+      <option [value]="language">
+        {{ language }}
+      </option>
+      }
+    </select>
   </div>
 
   @if (loading()) {
 
-    <p>
-      Loading projects from GitHub...
-    </p>
+  <p>
+    Loading projects from GitHub...
+  </p>
 
   } @else if (error()) {
 
-    <section class="error">
-      <h2>
-        GitHub couldn't be reached.
-      </h2>
+  <section class="error">
+    <h2>
+      GitHub couldn't be reached.
+    </h2>
 
-      <p>
-        Please try again later.
-      </p>
-    </section>
+    <p>
+      Please try again later.
+    </p>
+  </section>
 
   } @else {
 
-    <div class="project-grid">
+  <div class="project-grid">
 
-      @for (
-        project of filteredProjects();
-        track project.id
-      ) {
+    @for (
+    project of filteredProjects();
+    track project.id
+    ) {
 
-        <app-project-card
-          [project]="project"
-        />
+    <app-project-card [project]="project" />
 
-      } @empty {
+    } @empty {
 
-        <p>
-          No projects match your search.
-        </p>
+    <p>
+      No projects match your search.
+    </p>
 
-      }
+    }
 
-    </div>
+  </div>
 
   }
 

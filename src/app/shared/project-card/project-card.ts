@@ -10,6 +10,4 @@ import { Project } from '../../core/models/project';
 })
 export class ProjectCard {
   readonly project = input.required<Project>();
-
-  readonly selected = output<Project>();
 }

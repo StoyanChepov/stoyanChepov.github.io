@@ -1,18 +1,14 @@
-export type Technology =
-  | 'Angular'
-  | 'React'
-  | 'Node.js'
-  | 'JavaScript'
-  | 'TypeScript'
-  | 'Other';
-
 export interface Project {
   id: string;
   title: string;
   description: string;
-  technologies: Technology[];
+  primaryLanguage: string | null;
+  languages: Record<string, number>;
+
   githubUrl: string;
+
   stars: number;
   forks: number;
+
   updatedAt: string;
 }

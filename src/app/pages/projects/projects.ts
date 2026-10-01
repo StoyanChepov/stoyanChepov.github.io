@@ -1,6 +1,7 @@
 import {
   Component,
-  inject
+  inject,
+  computed
 } from '@angular/core';
 
 import {
@@ -13,14 +14,20 @@ import {
 } from '@angular/core/rxjs-interop';
 
 import {
+  combineLatest,
   debounceTime,
   distinctUntilChanged,
   map,
   startWith
 } from 'rxjs';
 
-import { ProjectService } from '../../core/services/project';
-import { ProjectCard } from '../../shared/project-card/project-card';
+import {
+  ProjectService
+} from '../../core/services/project';
+
+import {
+  ProjectCard
+} from '../../shared/project-card/project-card';
 
 @Component({
   selector: 'app-projects',
@@ -49,38 +56,67 @@ export class Projects {
       nonNullable: true
     });
 
+  readonly languageControl =
+    new FormControl<string>('All', {
+      nonNullable: true
+    });
+
+
   readonly filteredProjects =
     toSignal(
-      this.searchControl.valueChanges.pipe(
-        startWith(''),
-        debounceTime(300),
-        distinctUntilChanged(),
+      combineLatest([
+        this.searchControl.valueChanges.pipe(
+          startWith('')
+        ),
 
-        map(searchTerm => {
+        this.languageControl.valueChanges.pipe(
+          startWith('All')
+        )
+      ]).pipe(
+
+        debounceTime(300),
+
+        map(([searchTerm, language]) => {
+
           const term =
             searchTerm.trim().toLowerCase();
 
-          return this.projects()
-            .filter(project =>
+          return this.projects().filter(project => {
+
+            const matchesSearch =
               project.title
                 .toLowerCase()
-                .includes(term)
-              ||
+                .includes(term) ||
+
               project.description
                 .toLowerCase()
-                .includes(term)
-              ||
-              project.technologies.some(
-                technology =>
-                  technology
-                    .toLowerCase()
-                    .includes(term)
-              )
+                .includes(term);
+
+            const matchesLanguage =
+              language === 'All' ||
+              project.primaryLanguage === language;
+
+            return (
+              matchesSearch &&
+              matchesLanguage
             );
+          });
         })
       ),
       {
         initialValue: []
       }
     );
+
+  readonly availableLanguages = computed(() => {
+    const languages = new Set<string>();
+
+    for (const project of this.projects()) {
+      if (project.primaryLanguage) {
+        languages.add(project.primaryLanguage);
+      }
+    }
+
+    return [...languages].sort();
+  });
 }

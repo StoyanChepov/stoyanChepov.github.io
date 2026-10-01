@@ -30,6 +30,9 @@ export class ProjectService {
       .map(mapGitHubRepository);
   });
 
+  readonly repositories =
+    this.githubService.repositories;
+
   readonly isLoading =
     this.githubService.repositories.isLoading;
 

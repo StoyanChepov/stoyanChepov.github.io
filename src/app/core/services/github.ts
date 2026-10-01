@@ -1,21 +1,41 @@
 import {
-  Service,
-  signal
+    httpResource
+} from '@angular/common/http';
+
+import {
+    Service
 } from '@angular/core';
 
-import { httpResource } from '@angular/common/http';
+import {
+    GitHubRepository
+} from '../models/github-repository';
 
-import { GitHubRepository } from '../models/github-repository';
+import {
+    GitHubLanguages
+} from '../models/github-languages';
 
 @Service()
 export class GitHubService {
-  private readonly username = 'StoyanChepov';
+    private readonly username =
+        'StoyanChepov';
 
-  readonly repositories = httpResource<GitHubRepository[]>(
-    () =>
-      `https://api.github.com/users/${this.username}/repos?per_page=100&sort=updated`,
-    {
-      defaultValue: []
+    readonly repositories =
+        httpResource<GitHubRepository[]>(
+            () =>
+                `https://api.github.com/users/${this.username}/repos?per_page=100&sort=updated`,
+            {
+                defaultValue: []
+            }
+        );
+
+    languages(
+        repository: GitHubRepository
+    ) {
+        return httpResource<GitHubLanguages>(
+            () => repository.languages_url,
+            {
+                defaultValue: {}
+            }
+        );
     }
-  );
 }

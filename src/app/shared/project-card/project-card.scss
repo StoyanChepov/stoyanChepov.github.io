@@ -79,3 +79,28 @@ h3 {
 .links a:hover {
   color: #a99dff;
 }
+
+.primary-language {
+  display: inline-block;
+
+  margin-top: 1rem;
+  padding: 0.35rem 0.7rem;
+
+  border: 1px solid var(--border);
+  border-radius: 999px;
+
+  color: var(--text-muted);
+
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.project-meta {
+  display: flex;
+  gap: 1rem;
+
+  margin-top: 1rem;
+
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}

@@ -1,46 +1,114 @@
 <section class="project-details">
+
   @if (project(); as currentProject) {
-    <header>
-      <p class="eyebrow">
-        {{ currentProject.id }}
-      </p>
 
-      <h1>
-        {{ currentProject.title }}
-      </h1>
+  <header>
+    <p class="eyebrow">
+      {{ currentProject.id }}
+    </p>
 
-      <p>
-        {{ currentProject.description }}
-      </p>
-    </header>
+    <h1>
+      {{ currentProject.title }}
+    </h1>
 
-    <div class="technologies">
+    <p>
+      {{ currentProject.description }}
+    </p>
+  </header>
+
+  <div class="project-stats">
+
+    <span>
+      ⭐ {{ currentProject.stars }}
+    </span>
+
+    <span>
+      🍴 {{ currentProject.forks }}
+    </span>
+
+  </div>
+
+  <section class="languages">
+
+    <h2>
+      Languages
+    </h2>
+
+    @if (languages.isLoading()) {
+
+    <p>
+      Loading languages...
+    </p>
+
+    }
+
+    @else if (languages.error()) {
+
+    <p>
+      Unable to load language information.
+    </p>
+
+    }
+
+    @else if (languageBreakdown().length > 0) {
+
+    <div class="language-list">
+
       @for (
-        technology of currentProject.technologies;
-        track technology
+      language of languageBreakdown();
+      track language.name
       ) {
-        <span>{{ technology }}</span>
+
+      <div class="language">
+
+        <div class="language-header">
+
+          <span>
+            {{ language.name }}
+          </span>
+
+          <span>
+            {{ language.percentage | number:'1.0-1' }}%
+          </span>
+
+        </div>
+
+        <div class="language-bar">
+
+          <div class="language-progress" [style.width.%]="language.percentage"></div>
+
+        </div>
+
+      </div>
+
       }
+
     </div>
 
-    <div class="stats">
-      <span>
-        ⭐ {{ currentProject.stars }}
-      </span>
+    }
 
-      <span>
-        🍴 {{ currentProject.forks }}
-      </span>
-    </div>
+    @else {
 
-    <a
-      [href]="currentProject.githubUrl"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      View on GitHub ↗
-    </a>
-  } @else {
-    <p>Project not found.</p>
+    <p>
+      No language information available.
+    </p>
+
+    }
+
+  </section>
+
+  <a [href]="currentProject.githubUrl" target="_blank" rel="noopener noreferrer">
+    View on GitHub ↗
+  </a>
+
   }
+
+  @else {
+
+  <p>
+    Project not found.
+  </p>
+
+  }
+
 </section>
