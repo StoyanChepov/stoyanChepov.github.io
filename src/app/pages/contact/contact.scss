@@ -1,0 +1,60 @@
+:host {
+  display: block;
+}
+
+.contact-page {
+  width: min(700px, calc(100% - 48px));
+  margin: 100px auto;
+}
+
+.header {
+  margin-bottom: 48px;
+}
+
+.eyebrow {
+  color: #8b7cff;
+  text-transform: uppercase;
+}
+
+form {
+  display: grid;
+  gap: 24px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+input,
+textarea {
+  padding: 16px;
+
+  border: 1px solid #2b2b34;
+  border-radius: 16px;
+
+  background: #16161d;
+  color: white;
+}
+
+button {
+  padding: 16px 24px;
+
+  border: none;
+  border-radius: 16px;
+
+  background: #8b7cff;
+
+  cursor: pointer;
+}
+
+.error {
+  color: #ff6b6b;
+}
+
+.success {
+  margin-bottom: 24px;
+
+  color: #52d273;
+}

@@ -1,0 +1,103 @@
+<section class="contact-page">
+
+  <div class="header">
+    <p class="eyebrow">
+      Contact
+    </p>
+
+    <h1>
+      Let's build something together
+    </h1>
+  </div>
+
+  @if (sent()) {
+
+    <div class="success">
+      Message sent successfully.
+    </div>
+
+  }
+
+  <form
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+  >
+
+    <div class="field">
+
+      <label>Name</label>
+
+      <input
+        type="text"
+        formControlName="name"
+      >
+
+      @if (
+        form.controls.name.invalid &&
+        form.controls.name.touched
+      ) {
+        <p class="error">
+          Enter a valid name.
+        </p>
+      }
+
+    </div>
+
+    <div class="field">
+
+      <label>Email</label>
+
+      <input
+        type="email"
+        formControlName="email"
+      >
+
+      @if (
+        form.controls.email.invalid &&
+        form.controls.email.touched
+      ) {
+        <p class="error">
+          Enter a valid email.
+        </p>
+      }
+
+    </div>
+
+    <div class="field">
+
+      <label>Subject</label>
+
+      <input
+        type="text"
+        formControlName="subject"
+      >
+
+    </div>
+
+    <div class="field">
+
+      <label>Message</label>
+
+      <textarea
+        rows="8"
+        formControlName="message"
+      ></textarea>
+
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="loading()"
+    >
+
+      @if (loading()) {
+        Sending...
+      } @else {
+        Send Message
+      }
+
+    </button>
+
+  </form>
+
+</section>

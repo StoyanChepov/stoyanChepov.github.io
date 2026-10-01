@@ -20,6 +20,12 @@ export const routes: Routes = [
         .then(m => m.ProjectDetails)
   },
   {
+    path: 'contact',
+    loadComponent: () =>
+      import('./pages/contact/contact')
+        .then(m => m.Contact)
+  },
+  {
     path: '**',
     redirectTo: ''
   }
