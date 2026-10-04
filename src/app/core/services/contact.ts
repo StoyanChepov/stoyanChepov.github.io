@@ -1,18 +1,28 @@
-import { Service } from '@angular/core';
+import { Service, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
+import { environment } from '../../../environments/environment';
 import { ContactForm } from '../models/contact-form';
 
 @Service()
 export class ContactService {
+  private readonly http = inject(HttpClient);
 
-  async sendMessage(
-    form: ContactForm
-  ): Promise<void> {
+  private readonly endpoint =
+    environment.formspreeEndpoint;
 
-    console.log('Sending message:', form);
-
-    await new Promise(resolve =>
-      setTimeout(resolve, 1500)
+  async sendMessage(form: ContactForm): Promise<void> {
+    await firstValueFrom(
+      this.http.post(
+        this.endpoint,
+        form,
+        {
+          headers: {
+            Accept: 'application/json'
+          }
+        }
+      )
     );
   }
 }

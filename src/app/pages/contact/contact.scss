@@ -31,11 +31,11 @@ input,
 textarea {
   padding: 16px;
 
-  border: 1px solid #2b2b34;
+  border: 1px solid var(--border);
   border-radius: 16px;
 
   background: var(--surface);
-  color: white;
+  color: var(--text-primary);
 }
 
 button {
