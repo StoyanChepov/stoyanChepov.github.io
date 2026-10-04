@@ -11,24 +11,27 @@
   </nav>
 
   <div class="actions">
-    <button
-      type="button"
-      class="theme-toggle"
-      (click)="themeService.toggle()"
-    >
-      @if (themeService.theme() === 'dark') {
-        Light mode
-      } @else {
-        Dark mode
-      }
+    <button type="button" class="theme-toggle" (click)="themeService.toggle()" [attr.aria-label]="
+    themeService.theme() === 'dark'
+      ? 'Switch to light mode'
+      : 'Switch to dark mode'
+  " [attr.aria-pressed]="
+    themeService.theme() === 'dark'
+  ">
+      <span class="theme-icon" aria-hidden="true">
+        @if (themeService.theme() === 'dark') {
+        ☾
+        } @else {
+        ☀
+        }
+      </span>
+
+      <span class="theme-track" aria-hidden="true">
+        <span class="theme-thumb"></span>
+      </span>
     </button>
 
-    <a
-      class="github-link"
-      href="https://github.com/StoyanChepov"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
+    <a class="github-link" href="https://github.com/StoyanChepov" target="_blank" rel="noopener noreferrer">
       GitHub ↗
     </a>
   </div>
