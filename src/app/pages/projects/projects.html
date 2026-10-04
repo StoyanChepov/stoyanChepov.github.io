@@ -14,41 +14,42 @@
     </p>
   </header>
 
-  <div class="search">
-    <label for="project-search">
-      Search projects
-    </label>
+  <div class="controls">
+    <div class="search">
+      <label for="project-search">
+        Search projects
+      </label>
 
-    <div class="search-input-wrapper">
-      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        aria-hidden="true">
-        <circle cx="11" cy="11" r="7" />
-        <path d="m20 20-4-4" />
-      </svg>
-      <input id="project-search" type="search" placeholder="Search projects..." [formControl]="searchControl" />
+      <div class="search-input-wrapper">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          aria-hidden="true">
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-4-4" />
+        </svg>
+        <input id="project-search" type="search" placeholder="Search projects..." [formControl]="searchControl" />
+      </div>
     </div>
-  </div>
 
+    <div class="filter">
+      <label for="language-filter">
+        Language
+      </label>
 
-  <div class="filter">
-    <label for="language-filter">
-      Language
-    </label>
+      <select id="language-filter" [formControl]="languageControl">
+        <option value="All">
+          All languages
+        </option>
 
-    <select id="language-filter" [formControl]="languageControl">
-      <option value="All">
-        All languages
-      </option>
-
-      @for (
-      language of availableLanguages();
-      track language
-      ) {
-      <option [value]="language">
-        {{ language }}
-      </option>
-      }
-    </select>
+        @for (
+        language of availableLanguages();
+        track language
+        ) {
+        <option [value]="language">
+          {{ language }}
+        </option>
+        }
+      </select>
+    </div>
   </div>
 
   @if (loading()) {

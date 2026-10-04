@@ -49,10 +49,18 @@ h1 {
   }
 }
 
-.search {
-  width: 100%;
-  max-width: 480px;
+.controls {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5rem;
+  flex-wrap: wrap;
   margin-bottom: 2rem;
+}
+
+.search,
+.filter {
+  flex: 1 1 260px;
+  min-width: 0;
 
   label {
     display: block;
@@ -61,6 +69,35 @@ h1 {
     color: var(--text-muted);
     font-size: 0.875rem;
     font-weight: 500;
+  }
+}
+
+.search {
+  max-width: 480px;
+}
+
+.filter {
+  max-width: 220px;
+
+  select {
+    width: 100%;
+    min-height: 48px;
+    padding: 0.8rem 1rem;
+
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+
+    font: inherit;
+    font-size: 0.95rem;
+    outline: none;
+
+    &:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px
+        color-mix(in srgb, var(--accent) 18%, transparent);
+    }
   }
 }
 
