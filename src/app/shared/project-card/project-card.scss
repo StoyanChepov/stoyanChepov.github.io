@@ -6,7 +6,7 @@
   height: 100%;
   padding: 32px;
 
-  border: 1px solid #1c1c24;
+  border: 1px solid var(--border);
   border-radius: 20px;
 
   background: var(--surface);
@@ -19,7 +19,7 @@
 
 .project-card:hover {
   transform: translateY(-4px);
-  border-color: #34343f;
+  border-color: var(--accent);
   background: var(--surface);
 }
 
@@ -43,7 +43,7 @@ h3 {
 .description {
   margin: 16px 0 24px;
 
-  color: #888895;
+  color: var(--text-muted);
   line-height: 1.7;
 }
 
@@ -71,13 +71,14 @@ h3 {
 }
 
 .links a {
-  color: #ffffff;
+  color: var(--text);
   font-size: 0.85rem;
   font-weight: 600;
+  transition: color 180ms ease;
 }
 
 .links a:hover {
-  color: #a99dff;
+  color: var(--accent);
 }
 
 .primary-language {

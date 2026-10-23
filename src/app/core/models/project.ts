@@ -6,6 +6,7 @@ export interface Project {
   languages: Record<string, number>;
 
   githubUrl: string;
+  pageUrl: string | null;
 
   stars: number;
   forks: number;

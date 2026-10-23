@@ -79,7 +79,7 @@
     track project.id
     ) {
 
-    <app-project-card [project]="project" />
+    <app-project-card [project]="project" (selected)="selectProject($event)" />
 
     } @empty {
 
@@ -89,6 +89,79 @@
 
     }
 
+    @if (selectedProject(); as project) {
+    <div class="preview-backdrop" (click)="closePreview()">
+      <section class="project-preview" role="dialog" aria-modal="true" aria-labelledby="preview-title"
+        (click)="$event.stopPropagation()">
+        <button type="button" class="close-button" aria-label="Close project preview" (click)="closePreview()">
+          ×
+        </button>
+
+        <p class="eyebrow">
+          {{ project.id }}
+        </p>
+
+        <h2 id="preview-title">
+          {{ project.title }}
+        </h2>
+
+        <p>
+          {{ project.description }}
+        </p>
+
+        <div class="project-preview-meta">
+          <span>
+            ⭐ {{ project.stars }}
+          </span>
+
+          <span>
+            🍴 {{ project.forks }}
+          </span>
+
+          @if (project.primaryLanguage) {
+          <span>
+            {{ project.primaryLanguage }}
+          </span>
+          }
+        </div>
+
+        <div class="preview-navigation">
+          <button type="button" [disabled]="selectedProjectIndex() <= 0" (click)="previousProject()">
+            ← Previous
+          </button>
+
+          <span>
+            {{ selectedProjectIndex() + 1 }}
+            /
+            {{ filteredProjects().length }}
+          </span>
+
+          <button type="button" [disabled]="
+      selectedProjectIndex() ===
+      filteredProjects().length - 1
+    " (click)="nextProject()">
+            Next →
+          </button>
+        </div>
+
+        <div class="preview-actions">
+          @if (project.pageUrl) {
+          <a [href]="project.pageUrl" target="_blank" rel="noopener noreferrer">
+            Visit Page ↗
+          </a>
+          }
+
+          <a [href]="project.githubUrl" target="_blank" rel="noopener noreferrer">
+            View on GitHub ↗
+          </a>
+
+          <button type="button" (click)="closePreview()">
+            Close
+          </button>
+        </div>
+      </section>
+    </div>
+    }
   </div>
 
   }

@@ -60,12 +60,13 @@ h1 {
 }
 
 .actions a {
-  color: #ffffff;
+  color: var(--text);
   font-weight: 600;
+  transition: color 180ms ease;
 }
 
 .actions a:hover {
-  color: #a99dff;
+  color: var(--accent);
 }
 
 .languages {

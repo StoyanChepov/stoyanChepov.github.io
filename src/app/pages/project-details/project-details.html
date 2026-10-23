@@ -97,9 +97,21 @@
 
   </section>
 
-  <a [href]="currentProject.githubUrl" target="_blank" rel="noopener noreferrer">
-    View on GitHub ↗
-  </a>
+  <div class="actions">
+
+    @if (currentProject.pageUrl) {
+
+    <a [href]="currentProject.pageUrl" target="_blank" rel="noopener noreferrer">
+      Visit Page ↗
+    </a>
+
+    }
+
+    <a [href]="currentProject.githubUrl" target="_blank" rel="noopener noreferrer">
+      View on GitHub ↗
+    </a>
+
+  </div>
 
   }
 

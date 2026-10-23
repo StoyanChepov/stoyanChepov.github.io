@@ -1,7 +1,8 @@
 import {
   Component,
   inject,
-  computed
+  computed,
+  signal
 } from '@angular/core';
 
 import {
@@ -18,7 +19,9 @@ import {
   debounceTime,
   distinctUntilChanged,
   map,
-  startWith
+  of,
+  startWith,
+  switchMap
 } from 'rxjs';
 
 import {
@@ -28,7 +31,8 @@ import {
 import {
   ProjectCard
 } from '../../shared/project-card/project-card';
-
+import { Project } from '../../core/models/project';
+import { GitHubService } from '../../core/services/github';
 @Component({
   selector: 'app-projects',
   imports: [
@@ -36,14 +40,28 @@ import {
     ProjectCard
   ],
   templateUrl: './projects.html',
-  styleUrl: './projects.scss'
+  styleUrl: './projects.scss',
+  host: {
+    '(document:keydown.escape)': 'closePreview()',
+    '(document:keydown.arrowleft)': 'previousProject()',
+    '(document:keydown.arrowright)': 'nextProject()'
+  }
 })
 export class Projects {
   private readonly projectService =
     inject(ProjectService);
 
+  private readonly githubService =
+    inject(GitHubService);
+
   readonly projects =
     this.projectService.projects;
+
+  readonly selectedProject = signal<Project | null>(null);
+
+  selectProject(project: Project): void {
+    this.selectedProject.set(project);
+  }
 
   readonly loading =
     this.projectService.isLoading;
@@ -119,4 +137,78 @@ export class Projects {
 
     return [...languages].sort();
   });
+
+  closePreview(): void {
+    this.selectedProject.set(null);
+  }
+
+  readonly selectedProjectIndex = computed(() => {
+    const selected = this.selectedProject();
+
+    if (!selected) {
+      return -1;
+    }
+
+    return this.filteredProjects().findIndex(
+      project => project.id === selected.id
+    );
+  });
+
+  previousProject(): void {
+    const projects = this.filteredProjects();
+    const index = this.selectedProjectIndex();
+
+    if (index <= 0) {
+      return;
+    }
+
+    this.selectedProject.set(
+      projects[index - 1]
+    );
+  }
+
+  nextProject(): void {
+    const projects = this.filteredProjects();
+    const index = this.selectedProjectIndex();
+
+    if (
+      index === -1 ||
+      index >= projects.length - 1
+    ) {
+      return;
+    }
+
+    this.selectedProject.set(
+      projects[index + 1]
+    );
+  }
+
+  readonly githubSearchResults =
+    toSignal(
+      this.searchControl.valueChanges.pipe(
+
+        startWith(''),
+
+        map(value =>
+          value.trim()
+        ),
+
+        debounceTime(400),
+
+        distinctUntilChanged(),
+
+        switchMap(query => {
+          if (!query) {
+            return of([]);
+          }
+
+          return this.githubService
+            .searchRepositories(query);
+        })
+
+      ),
+      {
+        initialValue: []
+      }
+    );
 }

@@ -3,6 +3,8 @@ export interface GitHubRepository {
   name: string;
   full_name: string;
   html_url: string;
+  homepage: string | null;
+  has_pages: boolean;
   description: string | null;
   language: string | null;
   topics: string[];
