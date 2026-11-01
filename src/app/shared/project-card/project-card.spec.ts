@@ -59,6 +59,17 @@ describe('ProjectCard', () => {
     ].find(link => link.textContent?.includes('Live demo'));
 
     expect(liveLink?.getAttribute('href')).toBe('https://ring-scheduler-web.vercel.app');
+    // Same tab, so the back button returns to the portfolio.
+    expect(liveLink?.hasAttribute('target')).toBe(false);
+  });
+
+  it('should link to the repository with an accessible GitHub icon', () => {
+    const githubLink = (fixture.nativeElement as HTMLElement)
+      .querySelector('a.github-icon');
+
+    expect(githubLink?.getAttribute('href')).toBe('https://github.com/StoyanChepov/portfolio');
+    expect(githubLink?.getAttribute('aria-label')).toBe('View portfolio on GitHub');
+    expect(githubLink?.querySelector('svg')).toBeTruthy();
   });
 
   it('should emit when the card is clicked', () => {
