@@ -1,17 +1,15 @@
-import { Routes } from '@angular/router';
+import { inject } from '@angular/core';
+import { Router, Routes } from '@angular/router';
 
 import { Home } from './pages/home/home';
+
+const toSection = (fragment: string) => () =>
+  inject(Router).createUrlTree(['/'], { fragment });
 
 export const routes: Routes = [
   {
     path: '',
     component: Home
-  },
-  {
-    path: 'projects',
-    loadComponent: () =>
-      import('./pages/projects/projects')
-        .then(m => m.Projects)
   },
   {
     path: 'projects/:id',
@@ -20,10 +18,14 @@ export const routes: Routes = [
         .then(m => m.ProjectDetails)
   },
   {
+    path: 'projects',
+    pathMatch: 'full',
+    redirectTo: toSection('projects')
+  },
+  {
     path: 'contact',
-    loadComponent: () =>
-      import('./pages/contact/contact')
-        .then(m => m.Contact)
+    pathMatch: 'full',
+    redirectTo: toSection('contact')
   },
   {
     path: '**',

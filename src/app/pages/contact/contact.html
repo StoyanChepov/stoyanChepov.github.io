@@ -5,99 +5,136 @@
       Contact
     </p>
 
-    <h1>
+    <h2>
       Let's build something together
-    </h1>
+    </h2>
+
+    <p class="lead">
+      Have a project in mind, a role to fill, or just want to say hi?
+      Send me a message and I'll get back to you.
+    </p>
   </div>
 
-  @if (sent()) {
+  <div class="form-wrapper">
 
-    <div class="success">
-      Message sent successfully.
-    </div>
+    @if (sent()) {
 
-  }
+      <div class="success" role="status">
+        Message sent successfully.
+      </div>
 
-  <form
-    [formGroup]="form"
-    (ngSubmit)="submit()"
-  >
+    }
 
-    <div class="field">
-
-      <label>Name</label>
-
-      <input
-        type="text"
-        formControlName="name"
-      >
-
-      @if (
-        form.controls.name.invalid &&
-        form.controls.name.touched
-      ) {
-        <p class="error">
-          Enter a valid name.
-        </p>
-      }
-
-    </div>
-
-    <div class="field">
-
-      <label>Email</label>
-
-      <input
-        type="email"
-        formControlName="email"
-      >
-
-      @if (
-        form.controls.email.invalid &&
-        form.controls.email.touched
-      ) {
-        <p class="error">
-          Enter a valid email.
-        </p>
-      }
-
-    </div>
-
-    <div class="field">
-
-      <label>Subject</label>
-
-      <input
-        type="text"
-        formControlName="subject"
-      >
-
-    </div>
-
-    <div class="field">
-
-      <label>Message</label>
-
-      <textarea
-        rows="8"
-        formControlName="message"
-      ></textarea>
-
-    </div>
-
-    <button
-      type="submit"
-      [disabled]="loading()"
+    <form
+      [formGroup]="form"
+      (ngSubmit)="submit()"
     >
 
-      @if (loading()) {
-        Sending...
-      } @else {
-        Send Message
-      }
+      <div class="row">
 
-    </button>
+        <div class="field">
 
-  </form>
+          <label for="contact-name">Name</label>
+
+          <input
+            id="contact-name"
+            type="text"
+            autocomplete="name"
+            formControlName="name"
+          >
+
+          @if (
+            form.controls.name.invalid &&
+            form.controls.name.touched
+          ) {
+            <p class="error">
+              Enter a valid name.
+            </p>
+          }
+
+        </div>
+
+        <div class="field">
+
+          <label for="contact-email">Email</label>
+
+          <input
+            id="contact-email"
+            type="email"
+            autocomplete="email"
+            formControlName="email"
+          >
+
+          @if (
+            form.controls.email.invalid &&
+            form.controls.email.touched
+          ) {
+            <p class="error">
+              Enter a valid email.
+            </p>
+          }
+
+        </div>
+
+      </div>
+
+      <div class="field">
+
+        <label for="contact-subject">Subject</label>
+
+        <input
+          id="contact-subject"
+          type="text"
+          formControlName="subject"
+        >
+
+        @if (
+          form.controls.subject.invalid &&
+          form.controls.subject.touched
+        ) {
+          <p class="error">
+            Enter a subject of at least 5 characters.
+          </p>
+        }
+
+      </div>
+
+      <div class="field">
+
+        <label for="contact-message">Message</label>
+
+        <textarea
+          id="contact-message"
+          rows="6"
+          formControlName="message"
+        ></textarea>
+
+        @if (
+          form.controls.message.invalid &&
+          form.controls.message.touched
+        ) {
+          <p class="error">
+            Enter a message of at least 10 characters.
+          </p>
+        }
+
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="loading()"
+      >
+
+        @if (loading()) {
+          Sending...
+        } @else {
+          Send Message
+        }
+
+      </button>
+
+    </form>
+
+  </div>
 
 </section>

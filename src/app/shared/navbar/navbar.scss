@@ -1,15 +1,24 @@
 :host {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
   display: block;
+
+  background: color-mix(in srgb, var(--background) 82%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  backdrop-filter: blur(12px);
 }
 
 .navbar {
   width: min(1200px, calc(100% - 48px));
   margin-inline: auto;
-  padding: 24px 0;
+  padding: 16px 0;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
 }
 
 .logo {
@@ -34,8 +43,25 @@ nav a {
   transition: color 180ms ease;
 }
 
-nav a:hover {
+nav a:hover,
+nav a.active {
   color: var(--text);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 640px) {
+  nav {
+    gap: 20px;
+  }
+
+  .github-link {
+    display: none;
+  }
 }
 
 .github-link {

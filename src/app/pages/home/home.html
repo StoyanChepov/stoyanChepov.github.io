@@ -1,4 +1,4 @@
-<section class="hero">
+<section id="home" class="hero">
   <p class="greeting">Hello, I'm</p>
 
   <h1>{{ profile().name }}</h1>
@@ -10,36 +10,16 @@
   </p>
 
   <div class="hero-actions">
-    <a class="button button-primary" routerLink="/projects">
+    <a class="button button-primary" routerLink="/" fragment="projects">
       View my projects →
     </a>
 
-    <a class="button button-secondary" routerLink="/contact">
+    <a class="button button-secondary" routerLink="/" fragment="contact">
       Get in touch
     </a>
   </div>
 </section>
 
-<section class="projects-preview">
-  <header class="section-heading">
-    <div>
-      <p class="eyebrow">Selected work</p>
+<app-projects id="projects" />
 
-      <h2>Projects</h2>
-    </div>
-
-    <a class="see-all" routerLink="/projects">
-      All projects →
-    </a>
-  </header>
-
-  <div class="project-grid">
-    @for (project of projects(); track project.id) {
-      <app-project-card
-        [project]="project"
-      />
-    } @empty {
-      <p class="empty">No projects available yet.</p>
-    }
-  </div>
-</section>
+<app-contact id="contact" />

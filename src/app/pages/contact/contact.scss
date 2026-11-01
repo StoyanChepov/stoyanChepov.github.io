@@ -3,12 +3,15 @@
 }
 
 .contact-page {
-  width: min(700px, calc(100% - 48px));
-  margin: 48px auto 120px;
-}
+  width: min(1200px, calc(100% - 48px));
+  margin-inline: auto;
+  padding: 96px 0 120px;
 
-.header {
-  margin-bottom: 40px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 64px;
+
+  border-top: 1px solid var(--border);
 }
 
 .eyebrow {
@@ -21,7 +24,7 @@
   text-transform: uppercase;
 }
 
-h1 {
+h2 {
   margin: 0;
 
   font-size: clamp(2.25rem, 5vw, 3.5rem);
@@ -30,9 +33,23 @@ h1 {
   letter-spacing: -0.05em;
 }
 
+.lead {
+  max-width: 440px;
+  margin: 20px 0 0;
+
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
 form {
   display: grid;
-  gap: 24px;
+  gap: 20px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
 }
 
 .field {
@@ -41,34 +58,107 @@ form {
   gap: 8px;
 }
 
+label {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
 input,
 textarea {
-  padding: 16px;
+  width: 100%;
+  padding: 14px 16px;
 
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: 14px;
 
   background: var(--surface);
-  color: var(--text-primary);
+  color: var(--text);
+
+  font: inherit;
+  font-size: 0.95rem;
+  outline: none;
+
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+
+  &:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+}
+
+textarea {
+  resize: vertical;
 }
 
 button {
-  padding: 16px 24px;
+  justify-self: start;
+
+  min-height: 48px;
+  padding: 0 28px;
 
   border: none;
-  border-radius: 16px;
+  border-radius: 999px;
 
-  background: #8b7cff;
+  background: var(--accent);
+  color: #fff;
+
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
 
   cursor: pointer;
+
+  transition: filter 180ms ease;
+
+  &:hover:not(:disabled) {
+    filter: brightness(1.1);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  &:disabled {
+    cursor: progress;
+    opacity: 0.6;
+  }
 }
 
 .error {
+  margin: 0;
+
   color: #ff6b6b;
+  font-size: 0.85rem;
 }
 
 .success {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  padding: 14px 16px;
 
+  border: 1px solid color-mix(in srgb, #52d273 40%, transparent);
+  border-radius: 14px;
+
+  background: color-mix(in srgb, #52d273 10%, transparent);
   color: #52d273;
+}
+
+@media (max-width: 900px) {
+  .contact-page {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  button {
+    justify-self: stretch;
+  }
 }

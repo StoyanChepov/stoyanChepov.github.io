@@ -15,13 +15,9 @@ import {
 } from '@angular/core/rxjs-interop';
 
 import {
-  combineLatest,
   debounceTime,
   distinctUntilChanged,
-  map,
-  of,
-  startWith,
-  switchMap
+  map
 } from 'rxjs';
 
 import {
@@ -32,7 +28,7 @@ import {
   ProjectCard
 } from '../../shared/project-card/project-card';
 import { Project } from '../../core/models/project';
-import { GitHubService } from '../../core/services/github';
+
 @Component({
   selector: 'app-projects',
   imports: [
@@ -50,9 +46,6 @@ import { GitHubService } from '../../core/services/github';
 export class Projects {
   private readonly projectService =
     inject(ProjectService);
-
-  private readonly githubService =
-    inject(GitHubService);
 
   readonly projects =
     this.projectService.projects;
@@ -80,51 +73,51 @@ export class Projects {
     });
 
 
-  readonly filteredProjects =
+  private readonly searchTerm =
     toSignal(
-      combineLatest([
-        this.searchControl.valueChanges.pipe(
-          startWith('')
-        ),
-
-        this.languageControl.valueChanges.pipe(
-          startWith('All')
-        )
-      ]).pipe(
-
+      this.searchControl.valueChanges.pipe(
         debounceTime(300),
-
-        map(([searchTerm, language]) => {
-
-          const term =
-            searchTerm.trim().toLowerCase();
-
-          return this.projects().filter(project => {
-
-            const matchesSearch =
-              project.title
-                .toLowerCase()
-                .includes(term) ||
-
-              project.description
-                .toLowerCase()
-                .includes(term);
-
-            const matchesLanguage =
-              language === 'All' ||
-              project.primaryLanguage === language;
-
-            return (
-              matchesSearch &&
-              matchesLanguage
-            );
-          });
-        })
+        map(value => value.trim().toLowerCase()),
+        distinctUntilChanged()
       ),
       {
-        initialValue: []
+        initialValue: ''
       }
     );
+
+  private readonly language =
+    toSignal(
+      this.languageControl.valueChanges,
+      {
+        initialValue: 'All'
+      }
+    );
+
+  readonly filteredProjects = computed(() => {
+    const term = this.searchTerm();
+    const language = this.language();
+
+    return this.projects().filter(project => {
+
+      const matchesSearch =
+        project.title
+          .toLowerCase()
+          .includes(term) ||
+
+        project.description
+          .toLowerCase()
+          .includes(term);
+
+      const matchesLanguage =
+        language === 'All' ||
+        project.primaryLanguage === language;
+
+      return (
+        matchesSearch &&
+        matchesLanguage
+      );
+    });
+  });
 
   readonly availableLanguages = computed(() => {
     const languages = new Set<string>();
@@ -182,33 +175,4 @@ export class Projects {
       projects[index + 1]
     );
   }
-
-  readonly githubSearchResults =
-    toSignal(
-      this.searchControl.valueChanges.pipe(
-
-        startWith(''),
-
-        map(value =>
-          value.trim()
-        ),
-
-        debounceTime(400),
-
-        distinctUntilChanged(),
-
-        switchMap(query => {
-          if (!query) {
-            return of([]);
-          }
-
-          return this.githubService
-            .searchRepositories(query);
-        })
-
-      ),
-      {
-        initialValue: []
-      }
-    );
 }

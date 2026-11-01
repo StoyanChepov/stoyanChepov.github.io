@@ -1,25 +1,21 @@
 import {
   Component,
   computed,
-  inject,
   signal
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Profile } from '../../core/models/profile';
-import { Project } from '../../core/models/project';
-import { ProjectService } from '../../core/services/project';
-import { ProjectCard } from '../../shared/project-card/project-card';
+import { Contact } from '../contact/contact';
+import { Projects } from '../projects/projects';
 
 @Component({
   selector: 'app-home',
-  imports: [ProjectCard, RouterLink],
+  imports: [Projects, Contact, RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
 export class Home {
 
-  private readonly projectService = inject(ProjectService);
-  
   readonly profile = signal<Profile>({
     name: 'Stoyan Chepov',
     role: 'Software Developer',
@@ -33,6 +29,4 @@ export class Home {
     () =>
       `I'm ${this.profile().name}, a ${this.profile().role}.`
   );
-
-  readonly projects = this.projectService.projects;
 }

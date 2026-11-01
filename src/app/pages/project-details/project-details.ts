@@ -14,6 +14,10 @@ import {
 } from '@angular/common/http';
 
 import {
+  RouterLink
+} from '@angular/router';
+
+import {
   GitHubLanguages
 } from '../../core/models/github-languages';
 
@@ -23,7 +27,7 @@ import {
 
 @Component({
   selector: 'app-project-details',
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, RouterLink],
   templateUrl: './project-details.html',
   styleUrl: './project-details.scss'
 })
