@@ -1,45 +1,32 @@
 <article class="project-card" tabindex="0" (click)="selected.emit(project())"
   (keydown.enter)="selected.emit(project())">
-  <div class="content">
+  <div class="card-header">
     <h3>
       {{ project().title }}
     </h3>
-
-    <p class="description">
-      {{ project().description }}
-    </p>
 
     @if (project().primaryLanguage) {
     <span class="primary-language">
       {{ project().primaryLanguage }}
     </span>
     }
+  </div>
 
-    <div class="project-meta">
-      <span>
-        ⭐ {{ project().stars }}
-      </span>
+  <p class="description">
+    {{ project().description }}
+  </p>
 
-      <span>
-        🍴 {{ project().forks }}
-      </span>
-    </div>
+  <div class="links">
+    <a class="button button-primary" [routerLink]="[
+        '/projects',
+        project().id
+      ]" (click)="$event.stopPropagation()" (keydown.enter)="$event.stopPropagation()">
+      View project →
+    </a>
 
-    <div class="links">
-
-      <a [href]="project().githubUrl" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()"
-        (keydown.enter)="$event.stopPropagation()">
-        GitHub ↗
-      </a>
-
-      <a class="details-link" [routerLink]="[
-          '/projects',
-          project().id
-        ]" (click)="$event.stopPropagation()" (keydown.enter)="$event.stopPropagation()">
-        View project →
-      </a>
-
-    </div>
-
+    <a class="button button-secondary" [href]="project().githubUrl" target="_blank" rel="noopener noreferrer"
+      (click)="$event.stopPropagation()" (keydown.enter)="$event.stopPropagation()">
+      GitHub ↗
+    </a>
   </div>
 </article>

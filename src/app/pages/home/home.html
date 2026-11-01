@@ -1,23 +1,37 @@
 <section class="hero">
-  <p class="eyebrow">Hello, I'm</p>
+  <p class="greeting">Hello, I'm</p>
 
   <h1>{{ profile().name }}</h1>
 
-  <h2>{{ profile().role }}</h2>
+  <h2 class="role">{{ profile().role }}</h2>
 
-  <p>
+  <p class="description">
     {{ profile().description }}
   </p>
 
-  <a routerLink="/projects">
-    View my projects →
-  </a>
+  <div class="hero-actions">
+    <a class="button button-primary" routerLink="/projects">
+      View my projects →
+    </a>
+
+    <a class="button button-secondary" routerLink="/contact">
+      Get in touch
+    </a>
+  </div>
 </section>
 
 <section class="projects-preview">
-  <p class="eyebrow">Selected work</p>
+  <header class="section-heading">
+    <div>
+      <p class="eyebrow">Selected work</p>
 
-  <h2>Projects</h2>
+      <h2>Projects</h2>
+    </div>
+
+    <a class="see-all" routerLink="/projects">
+      All projects →
+    </a>
+  </header>
 
   <div class="project-grid">
     @for (project of projects(); track project.id) {
@@ -25,7 +39,7 @@
         [project]="project"
       />
     } @empty {
-      <p>No projects available yet.</p>
+      <p class="empty">No projects available yet.</p>
     }
   </div>
 </section>
