@@ -15,6 +15,9 @@
   --text-muted: #9999a5;
   --border: #2b2b34;
   --accent: #8b7cff;
+
+  // Vertical space above and below each home page section.
+  --section-space: clamp(48px, 6vw, 72px);
 }
 
 :root[data-theme='light'] {

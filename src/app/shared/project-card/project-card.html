@@ -24,6 +24,13 @@
       View project →
     </a>
 
+    @if (project().pageUrl) {
+    <a class="button button-secondary" [href]="project().pageUrl" target="_blank" rel="noopener noreferrer"
+      (click)="$event.stopPropagation()" (keydown.enter)="$event.stopPropagation()">
+      Live demo ↗
+    </a>
+    }
+
     <a class="button button-secondary" [href]="project().githubUrl" target="_blank" rel="noopener noreferrer"
       (click)="$event.stopPropagation()" (keydown.enter)="$event.stopPropagation()">
       GitHub ↗

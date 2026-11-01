@@ -44,6 +44,21 @@ describe('ProjectCard', () => {
     expect(element.querySelector('.primary-language')?.textContent).toContain('TypeScript');
     expect(element.querySelector('a.button-primary')?.getAttribute('href')).toBe('/projects/42');
     expect(element.textContent).not.toContain('⭐');
+    expect(element.textContent).not.toContain('Live demo');
+  });
+
+  it('should link to the live demo when the project has one', async () => {
+    fixture.componentRef.setInput('project', {
+      ...project,
+      pageUrl: 'https://ring-scheduler-web.vercel.app'
+    });
+    await fixture.whenStable();
+
+    const liveLink = [
+      ...(fixture.nativeElement as HTMLElement).querySelectorAll('a')
+    ].find(link => link.textContent?.includes('Live demo'));
+
+    expect(liveLink?.getAttribute('href')).toBe('https://ring-scheduler-web.vercel.app');
   });
 
   it('should emit when the card is clicked', () => {

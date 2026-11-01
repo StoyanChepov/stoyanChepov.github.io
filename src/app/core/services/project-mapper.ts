@@ -29,13 +29,14 @@ export function mapGitHubRepository(
 function getPageUrl(
     repository: GitHubRepository
 ): string | null {
-    if (!repository.has_pages) {
-        return null;
-    }
-
-    // Prefer the repo's "Website" field (covers custom domains).
+    // The repo's "Website" field wins: it covers custom domains and
+    // apps hosted outside GitHub Pages (e.g. Vercel).
     if (repository.homepage) {
         return repository.homepage;
+    }
+
+    if (!repository.has_pages) {
+        return null;
     }
 
     const owner =
